@@ -42,11 +42,11 @@ console.log("Password :", password);
       const role = data.role;
 
       if (role === "admin") {
-        window.location.href = "Admin/accueil-admin.html";
-        console.log("Utilisateur connecté :", user.uid1, email);
+        window.location.href = "accueil-admin.html";
+        console.log("Utilisateur connecté :", user.uid, email);
       } else {
-        window.location.href = "User/accueil-user.html";
-        console.log("Utilisateur connecté :", user.uid2, email);
+        window.location.href = "accueil-user.html";
+        console.log("Utilisateur connecté :", user.uid, email);
       }
     } else {
       alert("Utilisateur non trouvé dans la base de données !");

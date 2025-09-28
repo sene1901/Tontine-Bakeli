@@ -1,0 +1,200 @@
+ 
+
+  body {
+      font-family: Arial, sans-serif;
+        background-color: rgb(243, 238, 238) !important;
+    }
+    /* Sidebar  utilisateur*/
+    .sidebar {
+      height: 100vh;
+      background-color: #052c47;
+      color: white;
+      position: fixed;
+      width: 230px;
+      top: 0;
+      left: 0;
+      padding-top: 70px; /* espace sous la navbar */
+    }
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 12px 20px ;
+      text-decoration: none;
+    }
+    .sidebar a:hover{
+      background-color: #00c853 !important;
+      border-radius: 5px !important;
+    
+    }
+    .accordion-header:hover{
+      background-color: #00c853 !important;
+    
+    }
+
+    /* Navbar */
+    .navbar-custom {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+      position: fixed !important;
+      width: calc(100% - 220px);
+      left: 230px;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* Contenu principal */
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+    .carte{
+        /* display: flex !important; */
+      width: 350px;
+      height: 180px;
+    }
+
+    .profile-pic {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+    .accordion-button::after {
+  filter: invert(1); /* icône flèche blanche */
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #0d6efd; 
+  color: white;
+}
+
+.accordion-body a:hover
+ {
+  background-color: #00c853; /* vert comme ton screenshot */
+  border-radius: 4px;
+}
+
+.titre1{
+background-color:#00c853; 
+}
+.icon-dolar{
+    color: #00c853;
+}
+.card1{
+    max-width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      background: #fff;
+}
+.carte-caisse {
+      max-width: 450px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      background: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 15px;
+    }
+    .icone-caisse {
+      background: #e8fdf1;
+      width: 80px;
+      height: 100px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: #00c853;
+    }
+    .progress {
+      height: 8px;
+      border-radius: 6px;
+    }
+    .progress-bar {
+      background-color: #00c853 !important;
+    }
+    .table1{
+      background-color: #00c853 ;
+    }
+     .pagination { margin: 0; }
+     
+      @media screen and (max-width: 1024px) {
+        .icone-caisse{
+           width: 40px;
+      height: 60px;
+        }
+        .fa-sack-dollar {
+          font-size: 12px;
+        }
+        
+      }
+
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /* formulaire utilisateur */
+    .login-container {
+      min-height: 100vh; /* toute la hauteur */
+    }
+    .login-left {
+      background-color: #224957;
+      color: #fff;
+border-top-right-radius: 15%;   /* arrondi en haut à gauche */
+border-bottom-right-radius: 15%;/* arrondi en bas à gauche */
+    }
+    .login-left img {
+      max-width: 100%;
+      height: auto;
+    }
+    .input-form {
+      background-color: #224957;
+    }
+  .input-form::placeholder {
+color: #fff ;
+  }
+    .color-titre1 {
+      color: #224957 !important;
+    }
+    .color-titre2{
+    color: #224957 !important;
+    font-size: 18px;
+  
+    }
+    .btn-custom {
+      background-color: #1dd1a1;
+      color: rgb(34, 73, 87);
+      font-weight: bold;
+      border: none;
+    }
+    .btn-custom:hover {
+      background-color: #20DF7F;
+      color: white;
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) {
+      .input-form, .btn-custom {
+        width: 350px;
+        height: 40px;
+      }
+    }
+    @media (max-width: 767px) {
+      .input-form, .btn-custom {
+        width: 100%;
+        height: 45px;
+      }
+    }

@@ -3,9 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    Accuiel User
+  
+     <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="d-flex ">
+      <h4 class="px-3">Money-Suscribe</h3>
+    </div>
+    <div class="py-4">
+        <a href="#" data-page="Cotisation.html"><i class="fa-solid fa-sack-dollar fs-4 me-2"></i>Cotisations</a>  
+      
+        <div class="accordion accordion-flush order" id="accordionFlushExample">
+
+      <!-- Item Paramètres -->
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+
+      <!-- Item Paramètres -->
+      <div class="accordion-item bg-transparent">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed bg-transparent  text-white" 
+                  type="button" 
+                  data-bs-toggle="collapse" 
+                  data-bs-target="#flush-collapseOne" 
+                  aria-expanded="false" 
+                  aria-controls="flush-collapseOne">
+            <i class="bi bi-person me-2 fs-4"></i>Utilisateurs
+          </button>
+        </h2>
+
+        <!-- Sous-menu -->
+        <div id="flush-collapseOne" 
+            class="accordion-collapse collapse border-0" 
+            aria-labelledby="flush-headingOne" 
+            data-bs-parent="#accordionFlushExample">
+
+          <div class="accordion-body p-0">
+            <ul class="list-unstyled px-3 mt-3">
+              <li><a href="#" data-page="info.html" class="d-block px-2 py-2 text-white">Informations</a></li>
+              <li><a href="#" data-page="changer-Mt.html" class="d-block px-2 py-2 text-white">Changer mot de passe</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+        </div>
+    </div>
+
+  </div>
+
+  <!-- Navbar -->
+    <!-- Navbar -->
+ <nav class="navbar navbar-custom px-3 shadow-sm bg-white">
+  <span class="navbar-brand fw-bold">Cotisation</span>
+
+  <div class="d-flex align-items-center ms-auto">
+
+    <!-- Dropdown Profil -->
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-dark  text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="Images/OIP.jpeg" class="rounded-circle" width="35" height="35" alt="profil">
+        <div class="d-flex flex-column">
+             <span class="px-3 fw-semibold">Ndiaya Sall</span>
+            <span class="px-3">User</span>
+        </div>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser">
+
+        <li><a class="dropdown-item text-danger" href="index.html"> Déconnexion</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+ <!-- Contenu dynamique -->
+ <main id="main-content">
+      <!-- dashboard.html sera chargé ici par défaut -->
+  </main>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="accueil-user.js"></script>
 </body>
 </html>
