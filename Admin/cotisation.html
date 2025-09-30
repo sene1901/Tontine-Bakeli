@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau Vide avec Pagination Interactive</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light">
+    <div class="container py-4">
+
+        <!-- Ligne bouton Ajouter -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="m-0"></h3>
+            <button id="toggleFormBtn" class="btn btn-dark">
+                <i class="fa fa-plus"></i> Ajouter
+            </button>
+        </div>
+
+        <!-- FORMULAIRE EN "ENTÊTE" -->
+        <div id="formHeader" class="card mb-4 shadow-sm" style="display:none;">
+            <div class="card-body">
+                <h5 class="card-title mb-3 text-center">Ajouter un membre</h5>
+                <form id="memberForm" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" required>
+                            <div class="invalid-feedback">Prénom requis.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" required>
+                            <div class="invalid-feedback">Nom requis.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Date de naissance</label>
+                            <input type="date" class="form-control" id="dob" required>
+                            <div class="invalid-feedback">Date de naissance requise.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Profession</label>
+                            <input type="text" class="form-control" id="profession">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <div class="invalid-feedback">Email requis.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="telephone" pattern="^[0-9+\-\s()]{6,}$" required>
+                            <div class="invalid-feedback">Numéro invalide (au moins 6 chiffres).</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Adresse</label>
+                            <input type="text" class="form-control" id="adresse">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Organisation</label>
+                            <input type="text" class="form-control" id="organisation">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-3">
+                        <button type="button" id="cancelBtn" class="btn btn-outline-secondary">Annuler</button>
+                        <button type="submit" class="btn btn-success">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container my-5">
+        <div class="table-container">
+            <table class="table table-hover align-middle">
+                <thead class="table-header">
+                    <tr>
+                        <th scope="col" style="background-color: #20DF7F;">Membres</th>
+                        <th scope="col" style="background-color: #20DF7F;">Date début</th>
+                        <th scope="col" style="background-color: #20DF7F;">Seuil</th>
+                        <th scope="col" style="background-color: #20DF7F;">Progression</th>
+                        <th scope="col" style="background-color: #20DF7F;">Statut</th>
+                        <th scope="col" style="background-color: #20DF7F;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Les lignes vides s'afficheront ici -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav class="mt-3">
+            <ul class="pagination justify-content-center" id="pagination">
+                <li class="page-item"><a class="page-link" href="#" data-page="prev">Previous page</a></li>
+                <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="4">4</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="next">Next page</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        // Références DOM
+        const toggleFormBtn = document.getElementById('toggleFormBtn');
+        const formHeader = document.getElementById('formHeader');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const memberForm = document.getElementById('memberForm');
+        const tableBody = document.getElementById("table-body");
+        const pagination = document.getElementById("pagination");
+
+        let currentPage = 1;
+        const totalPages = 4;
+        const rowsPerPage = 5;
+
+        // Afficher/masquer formulaire
+        toggleFormBtn.addEventListener('click', () => {
+            if (formHeader.style.display === 'none' || getComputedStyle(formHeader).display === 'none') {
+                formHeader.style.display = 'block';
+                toggleFormBtn.innerHTML = '<i class="fa fa-times"></i> Fermer';
+            } else {
+                formHeader.style.display = 'none';
+                toggleFormBtn.innerHTML = '<i class="fa fa-plus"></i> Ajouter';
+                memberForm.reset();
+                memberForm.classList.remove('was-validated');
+            }
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            formHeader.style.display = 'none';
+            toggleFormBtn.innerHTML = '<i class="fa fa-plus"></i> Ajouter';
+            memberForm.reset();
+            memberForm.classList.remove('was-validated');
+        });
+
+        // Fonction pour remplir le tableau vide avec icônes
+        function renderTable(page) {
+            tableBody.innerHTML = "";
+            for (let i = 0; i < rowsPerPage; i++) {
+                const row = `
+                <tr>
+                    <td colspan="5" class="text-center text-muted"></td>
+                    <td>
+                        <i class="fa-regular fa-eye me-2"></i>
+                        <i class="fa-solid fa-download me-2"></i>
+                        <i class="fa-solid fa-ban"></i>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+        }
+
+        // Pagination
+        function updatePagination(page) {
+            if (page === "prev" && currentPage > 1) currentPage--;
+            else if (page === "next" && currentPage < totalPages) currentPage++;
+            else if (!isNaN(page)) currentPage = parseInt(page);
+
+            pagination.querySelectorAll(".page-item").forEach(item => item.classList.remove("active"));
+            pagination.querySelectorAll(".page-item").forEach(item => {
+                const link = item.querySelector("a");
+                if (link && link.dataset.page == currentPage) item.classList.add("active");
+            });
+
+            renderTable(currentPage);
+        }
+
+        pagination.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (e.target.tagName === "A") updatePagination(e.target.dataset.page);
+        });
+
+        // Initialisation
+        renderTable(currentPage);
+    </script>
+</body>
+
+</html>

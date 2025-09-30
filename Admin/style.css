@@ -29,4 +29,16 @@
   .tableau1{
     margin-left: 350px;
   }
-   
+    .table-header {
+      background-color: #00c853;
+      color: white;
+    }
+    .table-container {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    .pagination .page-item.active .page-link {
+      background-color: #00c853;
+      border-color: #00c853;
+       }

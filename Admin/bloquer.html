@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau vide dynamique sur pagination</title>
+    <title>Tableau bloques</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -16,72 +15,53 @@
             <h1 class="p-5">Bloques</h1>
         </div>
 
-
-
         <div class="tableau">
             <h2 class="text-center">6 Membre Bloques</h2>
             <div class="container p-3 d-flex justify-content-center align-items-center ">
                 <!-- TABLEAU PRINCIPAL -->
                 <div class="table-responsive w-75">
-                    <table class="table ">
+                    <table class="table " id="tablePrincipale">
                         <thead>
                             <tr>
-                                <th scope="col" style="background-color: #00c853;">Menbres</th>
-                                <th scope="col" style="background-color: #00c853;">Date Debut</th>
-                                <th scope="col" style="background-color: #00c853;">Action</th>
+                                <th scope="col" style="background-color: #20DF7F;">Menbres</th>
+                                <th scope="col" style="background-color: #20DF7F;">Date Debut</th>
+                                <th scope="col" style="background-color: #20DF7F;">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBody">
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"
-                                        onclick="voirMembre('Selena Roy')"></i>
-                                    <span style="cursor:pointer; color:red;"
-                                        onclick="bloquerMembre('Selena Roy')">🚫</span>
+                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"></i>
+                                    <span style="cursor:pointer; color:red;">🚫</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"
-                                        onclick="voirMembre('Emma Watson')"></i>
-                                    <span style="cursor:pointer; color:red;"
-                                        onclick="bloquerMembre('Emma Watson')">🚫</span>
+                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"></i>
+                                    <span style="cursor:pointer; color:red;">🚫</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"
-                                        onclick="voirMembre('Anne Hathaway')"></i>
-                                    <span style="cursor:pointer; color:red;"
-                                        onclick="bloquerMembre('Anne Hathaway')">🚫</span>
+                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"></i>
+                                    <span style="cursor:pointer; color:red;">🚫</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"
-                                        onclick="voirMembre('Ravi Shankar')"></i>
-                                    <span style="cursor:pointer; color:red;"
-                                        onclick="bloquerMembre('Ravi Shankar')">🚫</span>
+                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"></i>
+                                    <span style="cursor:pointer; color:red;">🚫</span>
                                 </td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"
-                                        onclick="voirMembre('Emma Stone')"></i>
-                                    <span style="cursor:pointer; color:red;"
-                                        onclick="bloquerMembre('Emma Stone')">🚫</span>
-                                </td>
-                            </tr>
+                            <!-- Vide au départ -->
                         </tbody>
                     </table>
                 </div>
@@ -92,59 +72,23 @@
     <!-- PAGINATION -->
     <div class="pagi">
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center" id="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Précédent</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Suivant</a>
-                </li>
-            </ul>
+            <ul class="pagination justify-content-center" id="pagination"></ul>
         </nav>
     </div>
 
-    <!-- TABLEAU VIDE DYNAMIQUE -->
-      <div class="tableau1">
-    <div class="table-responsive mt-3 d-none w-75" id="tableVideContainer">
-        <table class="table" id="tableVide">
-            <thead class="table-secondary">
-                <tr>
-                    <th scope="col" style="background-color: #00c853;">Menbres</th>
-                    <th scope="col" style="background-color: #00c853;">Date Debut</th>
-                    <th scope="col" style="background-color: #00c853;">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                </div>
-                <!-- Lignes générées par JS -->
-            
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        function voirMembre(nom) {
-            alert("Voir les informations de : " + nom);
-        }
-
-        function bloquerMembre(nom) {
-            if (confirm("Voulez-vous vraiment bloquer " + nom + " ?")) {
-                alert(nom + " a été bloqué.");
-            }
-        }
-
-        const lignesTotales = 10;
-        const lignesParPage = 2;
+        // ⚡️ Nombre total de lignes vides
+        const lignesTotales = 14;
+        const lignesParPage = 6;
         let pageActuelle = 1;
+        const totalPages = Math.ceil(lignesTotales / lignesParPage);
 
-        const tableVide = document.getElementById("tableVide");
-        const tableBody = tableVide.querySelector("tbody");
-        const tableVideContainer = document.getElementById("tableVideContainer");
+        const tableBody = document.getElementById("tableBody");
         const pagination = document.getElementById("pagination");
 
-        function afficherPageVide(page) {
-            tableVideContainer.classList.remove("d-none");
+        function afficherPage(page) {
             tableBody.innerHTML = "";
             const start = (page - 1) * lignesParPage;
             const end = Math.min(start + lignesParPage, lignesTotales);
@@ -155,24 +99,46 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <i class="bi bi-eye text-dark me-2" style="cursor:pointer;" onclick="alert('Voir détails ligne ${i + 1}')"></i>
-                        <span style="cursor:pointer; color:red;" onclick="this.closest('tr').remove();">🚫</span>
-                    </td>`;
+                        <i class="bi bi-eye text-dark me-2" style="cursor:pointer;"></i>
+                        <span style="cursor:pointer; color:red;">🚫</span>
+                    </td>
+                `;
                 tableBody.appendChild(tr);
             }
             pageActuelle = page;
+            afficherPagination();
         }
 
-        const pageItems = pagination.querySelectorAll(".page-item a.page-link");
-        pageItems.forEach(item => {
-            item.addEventListener("click", e => {
-                e.preventDefault();
-                const pageNum = parseInt(item.textContent);
-                if (!isNaN(pageNum)) afficherPageVide(pageNum);
-            });
-        });
+        function afficherPagination() {
+            pagination.innerHTML = "";
+
+            // bouton précédent
+            const prev = document.createElement("li");
+            prev.className = "page-item " + (pageActuelle === 1 ? "disabled" : "");
+            prev.innerHTML = `<a class="page-link" href="#">Précédent</a>`;
+            prev.onclick = () => { if (pageActuelle > 1) afficherPage(pageActuelle - 1); };
+            pagination.appendChild(prev);
+
+            // numéros de page
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement("li");
+                li.className = "page-item " + (i === pageActuelle ? "active" : "");
+                li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                li.onclick = () => afficherPage(i);
+                pagination.appendChild(li);
+            }
+
+            // bouton suivant
+            const next = document.createElement("li");
+            next.className = "page-item " + (pageActuelle === totalPages ? "disabled" : "");
+            next.innerHTML = `<a class="page-link" href="#">Suivant</a>`;
+            next.onclick = () => { if (pageActuelle < totalPages) afficherPage(pageActuelle + 1); };
+            pagination.appendChild(next);
+        }
+
+        // Charger la première page au démarrage
+        afficherPage(1);
     </script>
-    </div>
 </body>
 
 </html>
