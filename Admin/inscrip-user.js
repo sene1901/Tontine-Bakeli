@@ -187,9 +187,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Récupérer le formulaire
-// const  inscrire = document.querySelector("inscrire");
-// Récupérer le formulaire
 const form = document.querySelector("#inscriptionForm");
 
 form.addEventListener("submit", async (e) => {
@@ -225,6 +222,6 @@ form.addEventListener("submit", async (e) => {
   // Ajouter la notification
    // Recharger les heartbeats si nécessaire
   } catch (error) {
-     addNotification("Erreur : " + error.message);
+    //  addNotification("Erreur : " + error.message);
   }
 });
