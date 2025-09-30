@@ -189,6 +189,24 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+   const cards = document.querySelectorAll('.card-stats');
+    const tables = document.querySelectorAll('.table-container');
+
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Retirer l'état actif sur toutes les cartes
+            cards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+
+            // Masquer toutes les tables
+            tables.forEach(t => t.classList.add('d-none'));
+
+            // Afficher la bonne table
+            const tableId = card.getAttribute('data-table');
+            const table = document.getElementById('table-' + tableId);
+            if (table) table.classList.remove('d-none');
+        });
+    });
 
   // ==================== LOAD PAGE ====================
   function loadPage(page, title = "") {

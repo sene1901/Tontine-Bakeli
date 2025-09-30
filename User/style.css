@@ -22,12 +22,12 @@
       text-decoration: none;
     }
     .sidebar a:hover{
-      background-color: #00c853 !important;
+      background-color: #20DF7F !important;
       border-radius: 5px !important;
     
     }
     .accordion-header:hover{
-      background-color: #00c853 !important;
+      background-color:  #20DF7F !important;
     
     }
 
@@ -48,10 +48,13 @@
       padding: 20px;
     }
     .carte{
-        /* display: flex !important; */
-      width: 350px;
+      width: 300px;
       height: 180px;
     }
+    .card-stats {
+        
+            width: 264px !important;
+            height: 118px !important;}
 
     .profile-pic {
       width: 35px;
@@ -69,15 +72,15 @@
 
 .accordion-body a:hover
  {
-  background-color: #00c853; /* vert comme ton screenshot */
+  background-color: #20DF7F; /* vert comme ton screenshot */
   border-radius: 4px;
 }
 
 .titre1{
-background-color:#00c853; 
+background-color:#20DF7F; 
 }
 .icon-dolar{
-    color: #00c853;
+    color: #20DF7F;
 }
 .card1{
     max-width: 350px;
@@ -106,19 +109,31 @@ background-color:#00c853;
       align-items: center;
       justify-content: center;
       font-size: 30px;
-      color: #00c853;
+      color: #20DF7F !important;
     }
     .progress {
       height: 8px;
       border-radius: 6px;
     }
     .progress-bar {
-      background-color: #00c853 !important;
+      background-color: #20DF7F !important;
     }
     .table1{
-      background-color: #00c853 ;
+      background-color: #20DF7F !important ;
     }
-     .pagination { margin: 0; }
+     .pagination {
+      margin-top: 10px;
+     }
+     .card .amount{
+    font-size:20px;
+    font-weight:700;
+    color:#12343b;
+  }
+  .card .small{
+    color:#6a6a6a;
+    margin-top:6px;
+    font-size: 13px;
+  }
      
       @media screen and (max-width: 1024px) {
         .icone-caisse{

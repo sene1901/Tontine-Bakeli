@@ -58,12 +58,12 @@
     }
 
     .sidebar a:hover{
-      background-color: #00c853 !important;
+      background-color:  #20DF7F !important;
       border-radius: 5px !important;
     
     } 
     .accordion-header:hover{
-      background-color: #00c853 !important;
+      background-color:  #20DF7F !important;
     
     }
 
@@ -79,7 +79,7 @@
     }
 
    .courbe{
-    background-color: #00c853 !important;
+    background-color: #20DF7F!important;
    }
     .carte{
       width: 350px;
@@ -106,16 +106,20 @@
 
 .accordion-body a:hover
  {
-  background-color: #00c853; /* vert comme ton screenshot */
+  background-color:  #20DF7F; /* vert comme ton screenshot */
   border-radius: 4px;
 }
 
 .titre1{
-background-color:#00c853; 
+background-color: #20DF7F; 
 }
 .icon-dolar{
-    color: #00c853;
+    color:  #20DF7F;
 }
+/* .card{
+  width: 264px;
+  height: 118px;
+} */
 .card1{
     max-width: 350px;
       border-radius: 12px;
@@ -142,17 +146,17 @@ background-color:#00c853;
       align-items: center;
       justify-content: center;
       font-size: 30px;
-      color: #00c853;
+      color:  #20DF7F;
     }
     .progress {
       height: 8px;
       border-radius: 6px;
     }
     .progress-bar {
-      background-color: #00c853 !important;
+      background-color:  #20DF7F !important;
     }
     .table1{
-      background-color: #00c853 ;
+      background-color:  #20DF7F ;
     }
      .table-rempl { 
       margin-top: -50px !important; }
