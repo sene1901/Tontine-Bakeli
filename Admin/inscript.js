@@ -62,12 +62,14 @@ form.addEventListener("submit", async (e) => {
       createdAt: new Date()
     });
     form.reset();
-    window.location.href = "/index.html";  
+    window.location.href = "/index.html"; 
+    alert("inscription reussie") 
   // Ajouter la notification
-  addNotification(`${nom} ${prenom} a été ajouté !`);
+  // addNotification(`${nom} ${prenom} a été ajouté !`);
    // Recharger les heartbeats si nécessaire
   loadHeartbeats();
   } catch (error) {
-     addNotification("Erreur : " + error.message);
+    alert("Erreur : " + error.message)
+    //  addNotification("Erreur : " + error.message);
   }
 });
