@@ -42,3 +42,46 @@
       background-color: #00c853;
       border-color: #00c853;
        }
+        .modal-content {
+      border-radius: 15px;
+      padding: 20px;
+    }
+    .modal-header {
+      border-bottom: none;
+      justify-content: center;
+    }
+    .modal-body img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #20DF7F;
+      display: block;
+      margin: 0 auto 15px auto;
+    }
+    .modal-body h5 {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .modal-body p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-control {
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .btn-save {
+      width: 100%;
+      background-color: #0c3b4d;
+       color: white;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+     /* Forcer la hauteur de la modale */
+    .modal-content {
+        min-height: 600px; /* augmente la longueur */
+    }
+
+    /* Centrer verticalement le contenu */
+   
