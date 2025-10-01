@@ -162,6 +162,9 @@
     /* .cards{ flex-direction:column; } */
     .menu-btn{ top:8px; right:8px; }
   }
+  .card-stats { padding: 25px; border-radius: 15px;  background:#fff; cursor:pointer; transition:all 0.3s ease-in-out; }
+    /* .card-stats.active { background-color:#20DF7F !important; color:#fff; } */
+    .statut-actif { color:#20DF7F; font-weight:600;  padding: 20px !important;}
 </style>
 </head>
 <body>
@@ -172,18 +175,18 @@
   <div class="menu-btn mt-4" title="Basculer la vue" onclick="toggleTables()">⋯</div>
 
   <!-- Cartes -->
-  <div class="row g-4 py-4 justify-content-center" aria-hidden="false">
+  <!-- <div class="row g-4 py-4 justify-content-center" aria-hidden="false">
 <div class="col-md-3">
     <div class="card">
       <div class="label">Juin</div>
-      <div class="amount">225.000 FCFA</div>
+      <div class="amount"></div>
     </div>
 </div>
     
 <div class="col-md-3">
     <div class="card">
       <div class="label">Mai</div>
-      <div class="amount">100.000 FCFA</div>
+      <div class="amount"></div>
     </div>
 </div>
 <div class="col-md-4">
@@ -194,7 +197,29 @@
       <div class="small">77% du seuil</div>
     </div>
   </div>
+  </div> -->
+ <div class="row g-4 justify-content-center py-4">
+    <div class="col-md-3">
+      <div class="card-stats active " data-table="actifs">
+        <p>Juin</p>
+        <h5>225.000 FCFA</h3>
+      </div>
     </div>
+    <div class="col-md-3">
+      <div class="card-stats" data-table="bloques">
+        <p>Mai<p>
+        <h5>100.000 FCFA</h5>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card-stats mb-0" data-table="tous">
+        <P class="mb-0">Total Caisse</p>
+      <h5 >3.500.000 FCFA</h5>
+      <div class="mini-progress"><i></i></div>
+      <div class="small">77% du seuil</div>
+      </div>
+    </div>
+  </div>
 
   <!-- TABLEAU PRINCIPAL -->
    <div class="row justify-content-center">

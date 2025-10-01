@@ -311,7 +311,6 @@ function attachCardEvents() {
   });
 }
 
-// ==================== REALTIME USERS ====================
 // ==================== REALTIME USERS (corrigé) ====================
 function initRealtimeUsers() {
   const tbodyActifs = document.getElementById("tbody-actifs");
