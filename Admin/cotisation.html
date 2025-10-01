@@ -76,7 +76,7 @@
     flex: 1 1 0;
     background:var(--card-bg);
     border-radius:var(--radius);
-    padding: 20px;
+    padding: 15px;
     /* padding:var(--card-padding); */
     box-shadow:0 2px 6px rgba(0,0,0,0.06);
       width: 250px !important;
@@ -168,10 +168,10 @@
 <div class=" ">
 
   <!-- Bouton 3 points (placé dans la page pour être aligné visuellement) -->
-  <div class="menu-btn" title="Basculer la vue" onclick="toggleTables()">⋯</div>
+  <div class="menu-btn mt-4" title="Basculer la vue" onclick="toggleTables()">⋯</div>
 
   <!-- Cartes -->
-  <div class="row  py-4 justify-content-center" aria-hidden="false">
+  <div class="row g-4 py-4 justify-content-center" aria-hidden="false">
 <div class="col-md-3">
     <div class="card">
       <div class="label">Juin</div>
@@ -196,6 +196,8 @@
     </div>
 
   <!-- TABLEAU PRINCIPAL -->
+   <div class="row justify-content-center">
+<div class="col-md-10">
   <div class="table-box" id="table1">
     <table>
       <thead>
@@ -276,7 +278,9 @@
       </tbody>
     </table>
   </div>
-
+  
+</div>
+</div>
 </div>
 </body>
 </html>

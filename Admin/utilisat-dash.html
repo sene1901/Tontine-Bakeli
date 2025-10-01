@@ -10,8 +10,12 @@
     body { background-color: #f8f9fa; font-family: Arial, sans-serif; }
     .card-stats { padding: 20px; border-radius: 15px; text-align:center; background:#fff; cursor:pointer; transition:all 0.3s ease-in-out; }
     .card-stats.active { background-color:#20DF7F !important; color:#fff; }
-    .statut-actif { color:#20DF7F; font-weight:600; }
+    .statut-actif { color:#20DF7F; font-weight:600;  padding: 20px !important;}
     .statut-bloque { color:#dc3545; font-weight:600; }
+    thead th{
+      background-color: #20DF7F !important;
+      padding: 20px !important;
+    }
   </style>
 </head>
 <body>
@@ -21,7 +25,7 @@
   <!-- Cartes -->
   <div class="row g-4 justify-content-center">
     <div class="col-md-3">
-      <div class="card-stats active" data-table="actifs">
+      <div class="card-stats active " data-table="actifs">
         <p>Membres Actifs <i class="bi bi-dot" style="color:green; font-size:15px;"></i></p>
         <h3>0 Membres</h3>
       </div>
@@ -47,7 +51,7 @@
 
   <!-- Tables -->
   <!-- Table Actifs -->
-  <div class="table-responsive table-container mt-3" id="table-actifs">
+  <div class="table-responsive  mt-3" id="table-actifs">
     <table class="table align-middle">
       <thead>
         <tr>
@@ -64,7 +68,7 @@
   </div>
 
   <!-- Table Bloqués -->
-  <div class="table-responsive table-container d-none" id="table-bloques">
+  <div class="table-responsive mt-3 d-none" id="table-bloques">
     <table class="table align-middle">
       <thead>
         <tr>
@@ -80,7 +84,7 @@
   </div>
 
   <!-- Table Tous -->
-  <div class="table-responsive table-container d-none" id="table-tous">
+  <div class="table-responsive table-container d-none mt-3" id="table-tous">
     <table class="table align-middle">
       <thead>
         <tr>
@@ -115,6 +119,7 @@
             <div class="col-md-6"><input type="text" class="form-control" id="profession" placeholder="Profession"></div>
             <div class="col-md-6"><input type="email" class="form-control" id="userEmail" placeholder="Email" required></div>
             <div class="col-md-6"><input type="tel" class="form-control" id="telephone" placeholder="Téléphone"></div>
+            <div class="col-md-6"><input type="password" class="form-control" id="password" placeholder="Mot de passe" required></div>
             <div class="col-md-6"><input type="text" class="form-control" id="adress" placeholder="Adresse"></div>
           </div>
           <div class="text-center mt-3">
@@ -130,210 +135,211 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Firebase et logique JS -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-  import { getFirestore, collection, doc, setDoc, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+<script type="module" src="accueil-admin.js">
+//   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+//   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+//   import { getFirestore, collection, doc, setDoc, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyD1gEj4mV2hRaJImHW1IsyQjZ1uEusY-bM",
-    authDomain: "tontine-bakeli.firebaseapp.com",
-    projectId: "tontine-bakeli",
-    storageBucket: "tontine-bakeli.appspot.com",
-    messagingSenderId: "542050089083",
-    appId: "1:542050089083:web:41426bb7f5c41c496acade"
-  };
+//   const firebaseConfig = {
+//     apiKey: "AIzaSyD1gEj4mV2hRaJImHW1IsyQjZ1uEusY-bM",
+//     authDomain: "tontine-bakeli.firebaseapp.com",
+//     projectId: "tontine-bakeli",
+//     storageBucket: "tontine-bakeli.appspot.com",
+//     messagingSenderId: "542050089083",
+//     appId: "1:542050089083:web:41426bb7f5c41c496acade"
+//   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+//   const app = initializeApp(firebaseConfig);
+//   const auth = getAuth(app);
+//   const db = getFirestore(app);
 
-  const tbodyActifs = document.getElementById("tbody-actifs");
-  const tbodyBloques = document.getElementById("tbody-bloques");
-  const tbodyTous = document.getElementById("tbody-tous");
-  const cardActifs = document.querySelector('.card-stats[data-table="actifs"] h3');
-  const cardBloques = document.querySelector('.card-stats[data-table="bloques"] h3');
-  const cardTous = document.querySelector('.card-stats[data-table="tous"] h3');
-  const formUser = document.getElementById("form-user");
+//   const tbodyActifs = document.getElementById("tbody-actifs");
+//   const tbodyBloques = document.getElementById("tbody-bloques");
+//   const tbodyTous = document.getElementById("tbody-tous");
+//   const cardActifs = document.querySelector('.card-stats[data-table="actifs"] h3');
+//   const cardBloques = document.querySelector('.card-stats[data-table="bloques"] h3');
+//   const cardTous = document.querySelector('.card-stats[data-table="tous"] h3');
+//   const formUser = document.getElementById("form-user");
 
-  // Ajouter un utilisateur
- formUser.addEventListener("submit", async (e) => {
-  e.preventDefault();
+//   // Ajouter un utilisateur
+//  formUser.addEventListener("submit", async (e) => {
+//   e.preventDefault();
 
-  const nom = document.getElementById("nom").value.trim();
-  const prenom = document.getElementById("prenom").value.trim();
-  const dateNaissance = document.getElementById("date").value;
-  const profession = document.getElementById("profession").value.trim();
-  const email = document.getElementById("userEmail").value.trim();
-  const telephone = document.getElementById("telephone").value.trim();
-  const adresse = document.getElementById("adress").value.trim();
+//   const nom = document.getElementById("nom").value.trim();
+//   const prenom = document.getElementById("prenom").value.trim();
+//   const dateNaissance = document.getElementById("date").value;
+//   const profession = document.getElementById("profession").value.trim();
+//   const email = document.getElementById("userEmail").value.trim();
+//   const telephone = document.getElementById("telephone").value.trim();
+//   const adresse = document.getElementById("adresse").value.trim();
+//   const password = document.getElementById("password").value;
 
-  if (!nom || !prenom || !email || !dateNaissance) {
-    alert("Merci de remplir les champs obligatoires !");
-    return;
-  }
+//   if (!nom || !prenom || !email || !dateNaissance || !password) {
+//     alert("Merci de remplir les champs obligatoires !");
+//     return;
+//   }
 
-  try {
-    // Créer l'utilisateur Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, email, "motdepasse123");
-    const user = userCredential.user;
+//   try {
+//     // Créer l'utilisateur Firebase Auth
+//     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+//     const user = userCredential.user;
 
-    // Ajouter l'utilisateur dans Firestore
-    await setDoc(doc(db, "utilisateurs", user.uid), {
-      nom,
-      prenom,
-      dateNaissance,
-      profession,
-      email,
-      telephone,
-      adresse,
-      role: "user",
-      dateDebut: new Date().toISOString().slice(0,10),
-      statut: "Actif",
-      createdAt: new Date()
-    });
+//     // Ajouter l'utilisateur dans Firestore
+//     await setDoc(doc(db, "utilisateurs", user.uid), {
+//       nom,
+//       prenom,
+//       dateNaissance,
+//       profession,
+//       email,
+//       telephone,
+//       adresse,
+//       role: "user",
+//       dateDebut: new Date().toISOString().slice(0,10),
+//       statut: "Actif",
+//       createdAt: new Date()
+//     });
 
-    formUser.reset();
+//     formUser.reset();
 
-    // Fermer le modal
-    const modalEl = document.getElementById("ajouterModal");
-    const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-    modal.hide();
+//     // Fermer le modal
+//     const modalEl = document.getElementById("ajouterModal");
+//     const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+//     modal.hide();
 
-    alert("Ajout réussi !"); // message de confirmation
+//     alert("Ajout réussi !"); // message de confirmation
 
-  } catch (err) {
-    console.error(err);
-    alert("Erreur lors de l'ajout : " + err.message);
-  }
-});
+//   } catch (err) {
+//     console.error(err);
+//     alert("Erreur lors de l'ajout : " + err.message);
+//   }
+// });
 
 
-  // Gestion des actions
-  function addRowActions(tr, userId, data) {
-    const btnVoir = tr.querySelector(".btn-primary");
-    const btnSave = tr.querySelector(".btn-success");
-    const btnBloque = tr.querySelector(".btn-danger");
+//   // Gestion des actions
+//   function addRowActions(tr, userId, data) {
+//     const btnVoir = tr.querySelector(".btn-primary");
+//     const btnSave = tr.querySelector(".btn-success");
+//     const btnBloque = tr.querySelector(".btn-danger");
 
-    // Voir
-    btnVoir.addEventListener("click", () => {
-      alert(`
-Nom : ${data.nom}
-Prénom : ${data.prenom}
-Date début : ${data.dateDebut || "-"}
-Seuil : ${data.seuil || 0} FCFA
-Progression : ${data.progression || 0}%
-Statut : ${data.statut}
-Email : ${data.email}
-Téléphone : ${data.telephone}
-Adresse : ${data.adresse}
-      `);
-    });
+//     // Voir
+//     btnVoir.addEventListener("click", () => {
+//       alert(`
+// Nom : ${data.nom}
+// Prénom : ${data.prenom}
+// Date début : ${data.dateDebut || "-"}
+// Seuil : ${data.seuil || 0} FCFA
+// Progression : ${data.progression || 0}%
+// Statut : ${data.statut}
+// Email : ${data.email}
+// Téléphone : ${data.telephone}
+// Adresse : ${data.adresse}
+//       `);
+//     });
 
-    // Save
-    btnSave.addEventListener("click", async () => {
-      const newSeuil = prompt("Entrez le nouveau seuil :", data.seuil || 0);
-      const newProgression = prompt("Entrez la nouvelle progression :", data.progression || 0);
-      if(newSeuil !== null && newProgression !== null) {
-        try {
-          await setDoc(doc(db, "utilisateurs", userId), {
-            ...data,
-            seuil: parseFloat(newSeuil),
-            progression: parseFloat(newProgression)
-          });
-          alert("Modifications enregistrées !");
-        } catch(err) {
-          console.error(err);
-          alert("Erreur lors de la sauvegarde : " + err.message);
-        }
-      }
-    });
+//     // Save
+//     btnSave.addEventListener("click", async () => {
+//       const newSeuil = prompt("Entrez le nouveau seuil :", data.seuil || 0);
+//       const newProgression = prompt("Entrez la nouvelle progression :", data.progression || 0);
+//       if(newSeuil !== null && newProgression !== null) {
+//         try {
+//           await setDoc(doc(db, "utilisateurs", userId), {
+//             ...data,
+//             seuil: parseFloat(newSeuil),
+//             progression: parseFloat(newProgression)
+//           });
+//           alert("Modifications enregistrées !");
+//         } catch(err) {
+//           console.error(err);
+//           alert("Erreur lors de la sauvegarde : " + err.message);
+//         }
+//       }
+//     });
 
-    // Bloquer / Débloquer
-    btnBloque.addEventListener("click", async () => {
-      const newStatut = data.statut === "Bloqué" ? "Actif" : "Bloqué";
-      try {
-        await setDoc(doc(db, "utilisateurs", userId), {
-          ...data,
-          statut: newStatut
-        });
-      } catch(err) {
-        console.error(err);
-        alert("Erreur lors du changement de statut : " + err.message);
-      }
-    });
-  }
+//     // Bloquer / Débloquer
+//     btnBloque.addEventListener("click", async () => {
+//       const newStatut = data.statut === "Bloqué" ? "Actif" : "Bloqué";
+//       try {
+//         await setDoc(doc(db, "utilisateurs", userId), {
+//           ...data,
+//           statut: newStatut
+//         });
+//       } catch(err) {
+//         console.error(err);
+//         alert("Erreur lors du changement de statut : " + err.message);
+//       }
+//     });
+//   }
 
-  // Lecture temps réel
-  const q = query(collection(db, "utilisateurs"), where("role", "==", "user"), orderBy("createdAt", "asc"));
-  onSnapshot(q, (snap) => {
-    tbodyActifs.innerHTML = "";
-    tbodyBloques.innerHTML = "";
-    tbodyTous.innerHTML = "";
-    let countActifs = 0, countBloques = 0;
+//   // Lecture temps réel
+//   const q = query(collection(db, "utilisateurs"), where("role", "==", "user"), orderBy("createdAt", "asc"));
+//   onSnapshot(q, (snap) => {
+//     tbodyActifs.innerHTML = "";
+//     tbodyBloques.innerHTML = "";
+//     tbodyTous.innerHTML = "";
+//     let countActifs = 0, countBloques = 0;
 
-    snap.forEach(doc => {
-      const data = doc.data();
+//     snap.forEach(doc => {
+//       const data = doc.data();
 
-      // Ligne Actif
-      const trActif = document.createElement("tr");
-      trActif.innerHTML = `
-        <td>${data.prenom} ${data.nom}</td>
-        <td>${data.dateDebut || "-"}</td>
-        <td>${data.seuil || 0} FCFA</td>
-        <td>${data.progression || 0}%</td>
-        <td class="${data.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">${data.statut}</td>
-        <td>
-          <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
-          <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
-          <button class="btn btn-sm btn-danger"><i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'}"></i></button>
-        </td>
-      `;
+//       // Ligne Actif
+//       const trActif = document.createElement("tr");
+//       trActif.innerHTML = `
+//         <td>${data.prenom} ${data.nom}</td>
+//         <td>${data.dateDebut || "-"}</td>
+//         <td>${data.seuil || 0} FCFA</td>
+//         <td>${data.progression || 0}%</td>
+//         <td class="${data.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">${data.statut}</td>
+//         <td>
+//           <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+//           <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
+//           <button class="btn btn-sm btn-danger"><i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'}"></i></button>
+//         </td>
+//       `;
 
-      const trTous = trActif.cloneNode(true);
-      addRowActions(trActif, doc.id, data);
-      addRowActions(trTous, doc.id, data);
+//       const trTous = trActif.cloneNode(true);
+//       addRowActions(trActif, doc.id, data);
+//       addRowActions(trTous, doc.id, data);
 
-      tbodyTous.appendChild(trTous);
+//       tbodyTous.appendChild(trTous);
 
-      if(data.statut === "Bloqué") {
-        const trBloque = document.createElement("tr");
-        trBloque.innerHTML = `
-          <td>${data.prenom} ${data.nom}</td>
-          <td>${data.dateDebut || "-"}</td>
-          <td>${data.seuil || 0} FCFA</td>
-          <td class="statut-bloque">${data.statut}</td>
-          <td>
-            <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
-            <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
-            <button class="btn btn-sm btn-danger"><i class="bi bi-unlock"></i></button>
-          </td>
-        `;
-        addRowActions(trBloque, doc.id, data);
-        tbodyBloques.appendChild(trBloque);
-        countBloques++;
-      } else {
-        tbodyActifs.appendChild(trActif);
-        countActifs++;
-      }
-    });
+//       if(data.statut === "Bloqué") {
+//         const trBloque = document.createElement("tr");
+//         trBloque.innerHTML = `
+//           <td>${data.prenom} ${data.nom}</td>
+//           <td>${data.dateDebut || "-"}</td>
+//           <td>${data.seuil || 0} FCFA</td>
+//           <td class="statut-bloque">${data.statut}</td>
+//           <td>
+//             <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+//             <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
+//             <button class="btn btn-sm btn-danger"><i class="bi bi-unlock"></i></button>
+//           </td>
+//         `;
+//         addRowActions(trBloque, doc.id, data);
+//         tbodyBloques.appendChild(trBloque);
+//         countBloques++;
+//       } else {
+//         tbodyActifs.appendChild(trActif);
+//         countActifs++;
+//       }
+//     });
 
-    cardActifs.textContent = countActifs + " Membres";
-    cardBloques.textContent = countBloques + " Membres";
-    cardTous.textContent = snap.size + " Membres";
-  });
+//     cardActifs.textContent = countActifs + " Membres";
+//     cardBloques.textContent = countBloques + " Membres";
+//     cardTous.textContent = snap.size + " Membres";
+//   });
 
-  // Switch tableau selon carte
-  const cards = document.querySelectorAll('.card-stats');
-  const tables = document.querySelectorAll('.table-container');
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      cards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      tables.forEach(t => t.classList.add('d-none'));
-      document.getElementById('table-' + card.dataset.table).classList.remove('d-none');
-    });
-  });
+//   // Switch tableau selon carte
+//   const cards = document.querySelectorAll('.card-stats');
+//   const tables = document.querySelectorAll('.table-container');
+//   cards.forEach(card => {
+//     card.addEventListener('click', () => {
+//       cards.forEach(c => c.classList.remove('active'));
+//       card.classList.add('active');
+//       tables.forEach(t => t.classList.add('d-none'));
+//       document.getElementById('table-' + card.dataset.table).classList.remove('d-none');
+//     });
+//   });
 
 </script>
 </body>

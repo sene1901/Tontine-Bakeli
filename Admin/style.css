@@ -55,11 +55,23 @@
       margin-left: 0px;
       margin-top:100px ;
     }
+    .main-content {
+  overflow-x: auto; /* scroll horizontal si tableau trop large */
+}
      .navbar-light{
       left: 200px;
          width: calc(100% - 240px);
      }
     }
+    @media (max-width: 576px) {
+  .navbar .fw-semibold {
+    display: none; /* cacher le nom si trop petit */
+  }
+  .navbar img {
+    width: 28px;
+    height: 28px;
+  }
+}
 
     .sidebar a:hover{
       background-color:  #20DF7F !important;
@@ -72,7 +84,7 @@
     
     }
  .list-unstyled li a{
-  font-size: 18px !important;
+  font-size: 20px !important;
  }
     /* Navbar */
     .navbar-light {

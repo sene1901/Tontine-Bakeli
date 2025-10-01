@@ -187,41 +187,47 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const form = document.querySelector("#inscriptionForm");
+  const form = document.querySelector("#inscriptionForm");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  // Récupérer les valeurs
-  const nom = document.getElementById("nom").value;
-  const prenom = document.getElementById("prenom").value;
-  const dateNaissance = document.getElementById("dateNaissance").value;
-  const profession = document.getElementById("profession").value;
-  const email = document.getElementById("email").value;
-  const telephone = document.getElementById("telephone").value;
-  const adresse = document.getElementById("adresse").value;
-  const role = document.getElementById("role").value;
+    // Récupérer les valeurs
+    const nom = document.getElementById("nom").value.trim();
+    const prenom = document.getElementById("prenom").value.trim();
+    const dateNaissance = document.getElementById("dateNaissance").value;
+    const profession = document.getElementById("profession").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telephone = document.getElementById("telephone").value.trim();
+    const adresse = document.getElementById("adresse").value.trim();
+    const role = document.getElementById("role").value.trim();
+    const password = document.getElementById("password").value;
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email);
-    const user = userCredential.user;
+    if (!nom || !prenom || !dateNaissance || !email || !password) {
+      alert('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
 
-    await setDoc(doc(db, "utilisateurs", user.uid), {
-      nom,
-      prenom,
-      dateNaissance,
-      profession,
-      email,
-      telephone,
-      adresse,
-      role,
-      createdAt: new Date()
-    });
-    form.reset();
-    window.location.href = "/index.html";  
-  // Ajouter la notification
-   // Recharger les heartbeats si nécessaire
-  } catch (error) {
-    //  addNotification("Erreur : " + error.message);
-  }
-});
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "utilisateurs", user.uid), {
+        nom,
+        prenom,
+        dateNaissance,
+        profession,
+        email,
+        telephone,
+        adresse,
+        role,
+        createdAt: new Date()
+      });
+      form.reset();
+      window.location.href = "/index.html";  
+    // Ajouter la notification
+     // Recharger les heartbeats si nécessaire
+    } catch (error) {
+      alert("Erreur : " + error.message);
+    }
+  });
