@@ -153,7 +153,51 @@ background-color:#20DF7F;
 }
     
  
- 
+ .pagination {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.pagination .page-link {
+  border: none;
+  color: #6c757d; /* gris pour défaut */
+  margin: 0 3px;
+  border-radius: 50%; /* rond */
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  padding: 0;
+  background: white;
+  transition: 0.2s;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #15cc95; /* vert comme ton image */
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+  border-radius: 15px; /* arrondi simple pour prev/next */
+  width: auto;
+  padding: 5px 10px;
+  color: #6c757d;
+  background: transparent;
+}
+
+.pagination .page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
  
  
  
