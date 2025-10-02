@@ -38,7 +38,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
         // 3. Redirection selon le rôle
         if (role.toLowerCase() === "admin") {
           window.location.href = "/Admin/accueil-admin.html";
-        } else {
+        } else  {
           window.location.href = "/User/accueil-user.html";
         }
       } else {

@@ -47,7 +47,7 @@
        min-height: 140vh !important;
   margin: 0;
       overflow-x: hidden;
-      font-family: Arial, sans-serif;
+     font-family: 'Poppins', sans-serif; /* police par défaut */
       background-color: #f1f2f3 !important;
     }
     *{box-sizing:border-box}

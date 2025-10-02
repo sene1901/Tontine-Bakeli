@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Firebase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+    body {
+      font-family: Arial, sans-serif;
+        background-color: rgb(243, 238, 238) !important;
+    }
+    .profile-card {
+      text-align: center;
+      padding-top: 20px;
+      margin-left: 90px !important;
+      border-right: 2px solid #ddd;
+    }
+    .profile-card img {
+    
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+     
+      object-fit: cover;
+    }
+    .profile-card h4 {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .section-title {
+      background-color: #00c86f;
+      color: white;
+      padding: 6px ;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+   
+    .texte{
+         margin-left: 250px;
+    }
+    @media screen and (max-width: 1024px) {
+        .profile-card img {
+      width: 50px;
+      height: 50px;
+    }
+    #nomComplet{
+        font-size: 12px;
+    }
+    button{
+        width: 60px;
+        height: 48px;
+        font-size: 8px;
+        margin-left: -10px;
+
+    }
+    .section-title{
+        font-size: 12px !important;
+    }
+     }
+/* .content{
+margin-left: 20px;
+} */
+  </style>
+</head>
+<body>
+ <div class="inform ">  </div>   
+  <div class="container-fluid py-5 content me-3 mt-5">
+    <h3 class="mt-2 texte">Informations</h3>
+    <div class="row bg-white shadow-sm content g-4 mt-5  justify-content-center">
+      <!-- Colonne gauche Profil -->
+      <div class="col-md-4 profile-card ">
+        <img id="photo" src="/Images/le-technicien-informatique-supervise-le-reseau-neuronal-d-ia.jpg" alt="Photo de profil">
+        <h4 id="nomComplet">Ndeye Fatou</h4>
+        <p id="role" class="text-muted">Rôle</p>
+        
+        <button class="btn btn-dark">Éditer profil</button>
+      </div>
+       <!-- Divider (caché sur mobile) -->
+      <div class="col-md-1 d-none d-md-flex align-items-center justify-content-center">
+        <div class="divider"></div>
+      </div>
+
+      <!-- Colonne droite Informations -->
+      <div class="col-md-6 ">
+        <!-- Informations générales -->
+        <h6 class="section-title ">Informations Générales</h6>
+        <table class="table ">
+          <tbody>
+            <tr><th>Prénom</th><td id="prenom"></td></tr>
+            <tr><th>Nom</th><td id="nom"></td></tr>
+            <tr><th>Statut</th><td id="statut"></td></tr>
+            <tr><th>E-mail</th><td id="email"></td></tr>
+          </tbody>
+        </table>
+
+        <!-- Statistiques -->
+        <h6 class="section-title">Statistiques</h6>
+        <table class="table ">
+          <tbody>
+            <tr><th>Nombre de Cotisations effectuées</th><td id="cotisationsEffectuees"></td></tr>
+            <tr><th>Nombre de cotisations restantes</th><td id="cotisationsRestantes"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import Firebase (modular SDK)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // 🔥 Configuration Firebase (à remplacer par la tienne depuis console Firebase)
+     const firebaseConfig = {
+    apiKey: "AIzaSyD1gEj4mV2hRaJImHW1IsyQjZ1uEusY-bM",
+    authDomain: "tontine-bakeli.firebaseapp.com",
+    projectId: "tontine-bakeli",
+    storageBucket: "tontine-bakeli.appspot.com",
+    messagingSenderId: "542050089083",
+    appId: "1:542050089083:web:41426bb7f5c41c496acade"
+  };
+
+
+    // Initialiser Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Fonction pour charger un utilisateur
+    async function chargerProfil() {
+      const ref = doc(db, "utilisateurs", "ndeye fatou"); // doc ID
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        const data = snap.data();
+
+        // Remplir les champs
+        document.getElementById("photo").src = data.photo;
+        document.getElementById("nomComplet").textContent = data.prenom + " " + data.nom;
+        document.getElementById("role").textContent = data.role;
+        document.getElementById("prenom").textContent = data.prenom;
+        document.getElementById("nom").textContent = data.nom;
+        document.getElementById("statut").textContent = data.statut;
+        document.getElementById("email").textContent = data.email;
+        document.getElementById("cotisationsEffectuees").textContent = data.cotisationsEffectuees;
+        document.getElementById("cotisationsRestantes").textContent = data.cotisationsRestantes;
+      } else {
+        alert("Utilisateur introuvable !");
+      }
+    }
+
+    chargerProfil();
+  </script>
+</body>
+</html>
