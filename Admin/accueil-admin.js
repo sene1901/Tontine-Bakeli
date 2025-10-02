@@ -1,5 +1,3 @@
-
-// ==================== IMPORTS FIREBASE ====================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getFirestore, collection, doc, setDoc, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
@@ -86,211 +84,130 @@ function attachCardEvents() {
 }
 
 // ==================== REALTIME USERS (corrigé) ====================
-// function initRealtimeUsers() {
-//   const tbodyActifs = document.getElementById("tbody-actifs");
-//   const tbodyBloques = document.getElementById("tbody-bloques");
-//   const tbodyTous = document.getElementById("tbody-tous");
-//   const cardActifs = document.querySelector('.card-stats[data-table="actifs"] h3');
-//   const cardBloques = document.querySelector('.card-stats[data-table="bloques"] h3');
-//   const cardTous = document.querySelector('.card-stats[data-table="tous"] h3');
-
-//   if (!tbodyActifs || !tbodyBloques || !tbodyTous) {
-//     console.error("⚠️ Les tbody (#tbody-actifs, #tbody-bloques, #tbody-tous) n'existent pas dans le HTML !");
-//     return;
-//   }
-
-//   // Requête sans where au début pour être sûr d'avoir des résultats
-//   const q = query(
-//     collection(db, "utilisateurs"),
-//     orderBy("createdAt", "asc")
-//   );
-
-//   onSnapshot(q, (snap) => {
-//     console.log("📡 Nombre de docs Firestore récupérés :", snap.size);
-
-//     tbodyActifs.innerHTML = "";
-//     tbodyBloques.innerHTML = "";
-//     tbodyTous.innerHTML = "";
-
-//     let countActifs = 0;
-//     let countBloques = 0;
-
-//     snap.forEach(docSnap => {
-//       const data = { id: docSnap.id, ...docSnap.data() };
-//       console.log("➡️ Utilisateur :", data);
-
-//       const trTous = document.createElement("tr");
-//       trTous.innerHTML = `
-//         <td>${data.prenom || ""} ${data.nom || ""}</td>
-//         <td>${data.dateDebut || "-"}</td>
-//         <td>${data.seuil || 300000} FCFA</td>
-//         <td>${data.progression || 0}%</td>
-//         <td class="${data.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">
-//           ${data.statut || "En cours"}
-//         </td>
-//         <td>
-//           <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
-//           <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
-//           <button class="btn btn-sm btn-danger">
-//             <i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'}"></i>
-//           </button>
-//         </td>
-//       `;
-//       tbodyTous.appendChild(trTous);
-
-//       // Actifs
-//       if (data.statut !== "Bloqué") {
-//         const trActif = document.createElement("tr");
-//         trActif.innerHTML = `
-//           <td>${data.prenom || ""} ${data.nom || ""}</td>
-//           <td>${data.dateDebut || "-"}</td>
-//           <td>${data.seuil || 300000} FCFA</td>
-//           <td>${data.progression || 0}%</td>
-//           <td class="statut-actif">${data.statut || "Actif"}</td>
-//           <td>
-//             <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
-//             <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
-//             <button class="btn btn-sm btn-danger"><i class="bi bi-slash-circle"></i></button>
-//           </td>
-//         `;
-//         tbodyActifs.appendChild(trActif);
-//         countActifs++;
-//       }
-
-//       // Bloqués
-//       if (data.statut === "Bloqué") {
-//         const trTous = document.createElement("tr");
-// trTous.innerHTML = `
-//   <td>${data.prenom || ""} ${data.nom || ""}</td>
-//   <td>${data.dateDebut || "-"}</td>
-//   <td>${data.seuil || 300000} FCFA</td>
-//   <td>
-//     <div class="progress">
-//       <div class="progress-bar" style="width:${data.progression || 0}%"></div>
-//     </div>
-//     ${data.progression || 0}%
-//   </td>
-//   <td class="${data.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">
-//     ${data.statut || "Actif"}
-//   </td>
-//   <td>
-//     <i class="bi bi-eye me-2" title="Voir"></i>
-//     <i class="bi bi-pencil-square me-2" title="Modifier"></i>
-//     <i class="bi bi-trash me-2" title="Supprimer"></i>
-//     <i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'} text-danger" 
-//        style="cursor:pointer" 
-//        title="${data.statut === 'Bloqué' ? 'Débloquer' : 'Bloquer'}"
-//        onclick="toggleStatut('${data.id}', '${data.statut || "Actif"}')">
-//     </i>
-//   </td>
-// `;
-
-    
-//       }
-//     });
-
-//     cardActifs.textContent = countActifs + " Membres";
-//     cardBloques.textContent = countBloques + " Membres";
-//     cardTous.textContent = snap.size + " Membres";
-//   });
-// }
-// ==================== REALTIME USERS AVEC FILTRAGE ====================
 function initRealtimeUsers() {
   const tbodyActifs = document.getElementById("tbody-actifs");
   const tbodyBloques = document.getElementById("tbody-bloques");
   const tbodyTous = document.getElementById("tbody-tous");
+  const cardActifs = document.querySelector('.card-stats[data-table="actifs"] h3');
+  const cardBloques = document.querySelector('.card-stats[data-table="bloques"] h3');
+  const cardTous = document.querySelector('.card-stats[data-table="tous"] h3');
 
-  const cardActifs = document.querySelector('.card-stats[data-table="actifs"]');
-  const cardBloques = document.querySelector('.card-stats[data-table="bloques"]');
-  const cardTous = document.querySelector('.card-stats[data-table="tous"]');
+  if (!tbodyActifs || !tbodyBloques || !tbodyTous) {
+    console.error("⚠️ Les tbody (#tbody-actifs, #tbody-bloques, #tbody-tous) n'existent pas dans le HTML !");
+    return;
+  }
 
-  if (!tbodyActifs || !tbodyBloques || !tbodyTous) return;
+  // Requête sans where au début pour être sûr d'avoir des résultats
+  const q = query(
+    collection(db, "utilisateurs"),
+    orderBy("createdAt", "asc")
+  );
 
-  let allUsers = []; // 🔹 Toutes les données récupérées
-
-  // 🔹 Écoute Firestore en temps réel
-  const q = query(collection(db, "utilisateurs"), orderBy("createdAt", "asc"));
   onSnapshot(q, (snap) => {
-    allUsers = snap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-    renderTables(allUsers);
-    updateCards(allUsers);
-  });
+    console.log("📡 Nombre de docs Firestore récupérés :", snap.size);
 
-  // 🔹 Rendu des tableaux
-  function renderTables(users) {
     tbodyActifs.innerHTML = "";
     tbodyBloques.innerHTML = "";
     tbodyTous.innerHTML = "";
 
-    users.forEach(user => {
-      // Tous
+    let countActifs = 0;
+    let countBloques = 0;
+
+    snap.forEach(docSnap => {
+      const data = { id: docSnap.id, ...docSnap.data() };
+      console.log("➡️ Utilisateur :", data);
+
       const trTous = document.createElement("tr");
       trTous.innerHTML = `
-        <td>${user.prenom || ""} ${user.nom || ""}</td>
-        <td>${user.dateDebut || "-"}</td>
-        <td>${user.seuil || 300000} FCFA</td>
-        <td>${user.progression || 0}%</td>
-        <td class="${user.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">
-          ${user.statut || "En cours"}
+        <td>${data.prenom || ""} ${data.nom || ""}</td>
+        <td>${data.dateDebut || "-"}</td>
+        <td>${data.seuil || 300000} FCFA</td>
+        <td>${data.progression || 0}%</td>
+        <td class="${data.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">
+          ${data.statut || "En cours"}
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+          <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
+          <button class="btn btn-sm btn-danger">
+            <i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'}"></i>
+          </button>
         </td>
       `;
       tbodyTous.appendChild(trTous);
 
       // Actifs
-      if (user.statut !== "Bloqué") {
+      if (data.statut !== "Bloqué") {
         const trActif = document.createElement("tr");
         trActif.innerHTML = `
-          <td>${user.prenom || ""} ${user.nom || ""}</td>
-          <td>${user.dateDebut || "-"}</td>
-          <td>${user.seuil || 300000} FCFA</td>
-          <td>${user.progression || 0}%</td>
-          <td class="statut-actif">${user.statut || "Actif"}</td>
+          <td>${data.prenom || ""} ${data.nom || ""}</td>
+          <td>${data.dateDebut || "-"}</td>
+          <td>${data.seuil || 300000} FCFA</td>
+          <td>${data.progression || 0}%</td>
+          <td class="statut-actif">${data.statut || "Actif"}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+            <button class="btn btn-sm btn-success me-1"><i class="bi bi-save"></i></button>
+            <button class="btn btn-sm btn-danger"><i class="bi bi-slash-circle"></i></button>
+          </td>
         `;
         tbodyActifs.appendChild(trActif);
+        countActifs++;
       }
 
       // Bloqués
-      if (user.statut === "Bloqué") {
-        const trBloque = document.createElement("tr");
-        trBloque.innerHTML = `
-          <td>${user.prenom || ""} ${user.nom || ""}</td>
-          <td>${user.dateDebut || "-"}</td>
-          <td>${user.seuil || 300000} FCFA</td>
-          <td>${user.progression || 0}%</td>
-          <td class="statut-bloque">${user.statut || "Bloqué"}</td>
-        `;
-        tbodyBloques.appendChild(trBloque);
+      if (data.statut === "Bloqué") {
+        const trTous = document.createElement("tr");
+trTous.innerHTML = `
+  <td>${data.prenom || ""} ${data.nom || ""}</td>
+  <td>${data.dateDebut || "-"}</td>
+  <td>${data.seuil || 300000} FCFA</td>
+  <td>
+    <div class="progress">
+      <div class="progress-bar" style="width:${data.progression || 0}%"></div>
+    </div>
+    ${data.progression || 0}%
+  </td>
+  <td class="${data.statut === 'Bloqué' ? 'statut-bloque' : 'statut-actif'}">
+    ${data.statut || "Actif"}
+  </td>
+  <td>
+    <i class="bi bi-eye me-2" title="Voir"></i>
+    <i class="bi bi-pencil-square me-2" title="Modifier"></i>
+    <i class="bi bi-trash me-2" title="Supprimer"></i>
+    <i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'} text-danger" 
+       style="cursor:pointer" 
+       title="${data.statut === 'Bloqué' ? 'Débloquer' : 'Bloquer'}"
+       onclick="toggleStatut('${data.id}', '${data.statut || "Actif"}')">
+    </i>
+  </td>
+`;
+
+    //     const trBloque = document.createElement("tr");
+    //     trBloque.innerHTML = `
+    //       <td>${data.prenom || ""} ${data.nom || ""}</td>
+    //       <td>${data.dateDebut || "-"}</td>
+    //       <td>${data.seuil || 0} FCFA</td>
+    //       <td class="statut-bloque">${data.statut}</td>
+    //       <td>
+    //         <i class="bi bi-eye me-2" title="Voir"></i>
+    // <i class="bi bi-pencil-square me-2" title="Modifier"></i>
+    // <i class="bi bi-trash me-2" title="Supprimer"></i>
+    // <i class="bi ${data.statut === 'Bloqué' ? 'bi-unlock' : 'bi-slash-circle'} text-danger" 
+    //    style="cursor:pointer" 
+    //    title="${data.statut === 'Bloqué' ? 'Débloquer' : 'Bloquer'}"
+    //    onclick="toggleStatut('${data.id}', '${data.statut || "Actif"}')">
+    //       </td>
+    //     `;
+    //     tbodyBloques.appendChild(trBloque);
+    //     countBloques++;
       }
     });
-  }
 
-  // 🔹 Mettre à jour les compteurs des cartes
-  function updateCards(users) {
-    const countActifs = users.filter(u => u.statut !== "Bloqué").length;
-    const countBloques = users.filter(u => u.statut === "Bloqué").length;
-
-    cardActifs.querySelector("h3").textContent = countActifs + " Membres";
-    cardBloques.querySelector("h3").textContent = countBloques + " Membres";
-    cardTous.querySelector("h3").textContent = users.length + " Membres";
-  }
-
-  // 🔹 Filtrage par carte
-  function showTable(table) {
-    tbodyActifs.parentElement.classList.add("d-none");
-    tbodyBloques.parentElement.classList.add("d-none");
-    tbodyTous.parentElement.classList.add("d-none");
-
-    if (table === "actifs") tbodyActifs.parentElement.classList.remove("d-none");
-    if (table === "bloques") tbodyBloques.parentElement.classList.remove("d-none");
-    if (table === "tous") tbodyTous.parentElement.classList.remove("d-none");
-  }
-
-  cardActifs.addEventListener("click", () => showTable("actifs"));
-  cardBloques.addEventListener("click", () => showTable("bloques"));
-  cardTous.addEventListener("click", () => showTable("tous"));
-
-  // 🔹 Affichage par défaut : Tous
-  showTable("tous");
+    cardActifs.textContent = countActifs + " Membres";
+    cardBloques.textContent = countBloques + " Membres";
+    cardTous.textContent = snap.size + " Membres";
+  });
 }
 
 
@@ -362,5 +279,5 @@ document.querySelectorAll('.sidebar a[data-page]').forEach(link => {
 });
 
 // ==================== CHARGEMENT PAR DÉFAUT ====================
-//  Vérifie bien le nom de ton fichier (dashboard.html)
+// ⚠️ Vérifie bien le nom de ton fichier (dashboard.html)
 loadPage("dashbord.html", "Dashboard");
