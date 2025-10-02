@@ -16,19 +16,21 @@
       <!-- mbre de cotisation -->
     <div class="row g-4">
       <div class="col-md-3">
-        <div class="card1 p-3 shadow-sm ">
-          <h6>Total Cotisé</h6>
-          <p id="montant-juin">0 FCFA</P>
-          <small id="nb-cotisation-juin">Nombre de cotisation: 0</small>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card1 p-3 shadow-sm ">
-          <h6>Monantn Restant</h6>
-          <p id="montant-mai">0 FCFA</p>
-          <small id="nb-cotisation-mai">Nombre de cotisation restant: 0</small>
-        </div>
-      </div>
+  <div class="card1 p-3 shadow-sm ">
+    <h6>Total Cotisé</h6>
+    <p id="total-cotise">0 FCFA</p>
+    <small id="nb-cotisations">Nombre de cotisations: 0</small>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="card1 p-3 shadow-sm ">
+    <h6>Montant Restant</h6>
+    <p id="montant-restant">0 FCFA</p>
+    <small id="nb-cotisation-restant">Nombre de cotisations restantes: 0</small>
+  </div>
+</div>
+
       <div class="col-md-6">
         <div class="carte-caisse">
         <!-- Icône -->
@@ -40,13 +42,14 @@
             <div class="flex-grow-1">
             <h6 class="mb-1 fw-bold">Caisse</h6>
             <p class="mb-1">
-                <span class="fw-semibold text-secondary">1000.000</span> /
-                <span class="fw-bold">300.000 FCFA</span>
+              <span id="caisse-total" class="fw-bold">0</span> / 
+              <span id="caisse-objectif" class="fw-semibold text-secondary">240000</span> FCFA
             </p>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+              <div class="progress-bar" id="caisse-progress" role="progressbar" style="width: 0%"></div>
             </div>
-            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -80,14 +83,14 @@
 
 
     <!-- Tableau centré -->
-    <div class="d-flex justify-content-center align-items-center flex-wrap" >
-        <div class="container ">
+    <div class="d-flex justify-content-center  flex-wrap" >
+        <div class="container me-5">
             <div class="table-container mt-4">
                 <div class="row justify-content-center">
                     <div class="col-lg-9 col-md-3">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle  py-5">
                     <thead class="table-header ">
-                        <tr class="py-4" >
+                        <tr class=" rounded-3" >
                             <th scope="col" style="background-color: #20DF7F;">Mois</th>
                             <th scope="col" style="background-color: #20DF7F;">Date début</th>
                             <th scope="col" style="background-color: #20DF7F;">Seuil</th>
